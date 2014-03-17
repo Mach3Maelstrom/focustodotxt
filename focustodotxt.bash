@@ -1,5 +1,10 @@
 #!/usr/bin/bash
 
+TODO=/cygdrive/c/Temp/todo/
+SOMEDAY=/cygdrive/c/Temp/someday/
+PPLANS=/cygdrive/c/Temp/pplans/
+
+
 if [ -f todo.new ]; then
   rm todo.new
 fi
@@ -22,8 +27,8 @@ while read textline; do
     done < projects.txt
     if [[ $resultEnd -eq 1 ]]; then
       project=""
-      [[ $textline =~ .*\+(Project.*)$ ]] && project=${BASH_REMATCH[1]}
-      echo "$textline" >> "pplan_$project.txt"
+      [[ $textline =~ .*\+(Project.*)\s*$ ]] && project=${BASH_REMATCH[1]}
+      echo "$textline" >> $PPLANS/pplan_$project.txt
       echo "$project" >> someday.tmp
       # empty line so it doesn't show up in the todo.txt file
       textline=""
@@ -37,10 +42,10 @@ while read textline; do
   fi
 done < todo.txt
 if [ -s someday.new ]; then
-  mv someday.new someday.txt
+  mv someday.new $SOMEDAY/someday.txt
 fi
 if [ -s todo.new ]; then
-  mv todo.new todo.txt
+  mv todo.new $TODO/todo.txt
 fi
 if [ -f someday.tmp ]; then
   rm someday.tmp
