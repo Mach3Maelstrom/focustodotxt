@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
-TODO=/cygdrive/c/Temp/todo/
-SOMEDAY=/cygdrive/c/Temp/someday/
-PPLANS=/cygdrive/c/Temp/pplans/
+TODO=/c/cygwin64/home/user
+SOMEDAY=/c/cygwin64/home/user
+PPLANS=/c/cygwin64/home/user/pplans
 
 
 if [ -f todo.new ]; then
@@ -24,7 +24,7 @@ while read textline; do
       echo "$textline" | grep $projectline > /dev/null
       result=$?
       resultEnd=$[$result*$resultEnd]
-    done < projects.txt
+    done < $TODO/projects.txt
     if [[ $resultEnd -eq 1 ]]; then
       project=""
       [[ $textline =~ .*\+(Project.*)\s*$ ]] && project=${BASH_REMATCH[1]}
